@@ -75,6 +75,7 @@ export const Form = () => {
     confirmPassword: Yup.string()
       .required("confirm password Is Required")
       .oneOf([Yup.ref("password"), "not matched!"], "password doesn't match"),
+
     gender: Yup.string().required("Gender is required"),
   });
   const onSubmit = (values) => {
@@ -90,8 +91,6 @@ export const Form = () => {
     resolver: yupResolver(validationSchema),
     mode: "onBlur",
   });
-  // console.log(control);
-  // console.log({ ...register });
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="container mt-4">
@@ -125,7 +124,6 @@ export const Form = () => {
             <PhonePicker
               register={{ ...register("phone") }}
               label="Phone number"
-              // placeholder="Phone number "
               errors={errors.phone}
             />
           </div>
@@ -173,7 +171,7 @@ export const Form = () => {
             />
           </div>
 
-          <button type="submit" className="btn rounded-pill btn-primary">
+          <button type="submit" className="btn rounded-pill btn-primary shadow">
             next
           </button>
         </div>
