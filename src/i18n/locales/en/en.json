@@ -1,0 +1,37 @@
+{
+  "title": "Registration",
+  "labels": {
+    "name": "FullName",
+    "position": "position",
+    "email": "Email",
+    "phone": "Phone number",
+    "country": "Country",
+    "city": "City",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "gender": "Gender"
+  },
+  "placeholder": {
+    "nameContent": "Please enter your name",
+    "positionContent": "Please enter your position",
+    "emailContent": "Please enter your email",
+    "countryContent": "Please enter your country",
+    "cityContent": "Please enter your city",
+    "passwordContent": "Please enter your password",
+    "confirmPasswordContent": "Please confirm password"
+  },
+  "gender": {
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "preferNotToSay": "Prefer not to say"
+  },
+  "errors": {
+    "main": "This input is required",
+    "noSpace": "Your name must not have spaces",
+    "inValid": "your email is Invalid",
+    "validPassword": "Your password should be Minimum eight characters, at least one letter ,one number and one special character",
+    "dontMatch": "password doesn't match"
+  },
+  "submit": "next"
+}

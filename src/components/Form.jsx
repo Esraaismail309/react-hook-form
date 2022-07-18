@@ -6,8 +6,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Select } from "./Select";
 import { Radio } from "./Radio";
 import { PhonePicker } from "./PhonePicker";
+// import { FormattedMessage, useIntl } from "react-intl";
+import { useTranslation } from "react-i18next";
 
 export const Form = () => {
+  const { t } = useTranslation();
+  // console.log(t);
   const initialValues = {
     fullName: "",
     position: "",
@@ -40,43 +44,41 @@ export const Form = () => {
   const genderOptions = [
     {
       value: 1,
-      key: "Male",
+      key: t("gender.male"),
     },
     {
       value: 2,
-      key: "Female",
+      key: t("gender.female"),
     },
     {
       value: 3,
-      key: "Other",
+      key: t("gender.other"),
     },
     {
       value: 4,
-      key: "Prefer not to say",
+      key: t("gender.preferNotToSay"),
     },
   ];
   const validationSchema = Yup.object({
     fullName: Yup.string()
-      .required("Name is required")
-      .matches("^\\S*$", "Your name must not have spaces"),
-    position: Yup.string().required("Position is required"),
-    email: Yup.string()
-      .required("Email is required")
-      .email("your email is Invalid"),
-    phone: Yup.string().required("Phone number is required"),
-    country: Yup.string().required("Country is required"),
-    city: Yup.string().required("city is required"),
+      .required(t("errors.main"))
+      .matches("^\\S*$", t("errors.noSpace")),
+    position: Yup.string().required(t("errors.main")),
+    email: Yup.string().required(t("errors.main")).email(t("errors.inValid")),
+    phone: Yup.string().required(t("errors.main")),
+    country: Yup.string().required(t("errors.main")),
+    city: Yup.string().required(t("errors.main")),
     password: Yup.string()
-      .required("password is required")
+      .required(t("errors.main"))
       .matches(
         "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-        "Your password should be Minimum eight characters, at least one letter ,one number and one special character"
+        t("errors.validPassword")
       ),
     confirmPassword: Yup.string()
-      .required("confirm password Is Required")
-      .oneOf([Yup.ref("password"), "not matched!"], "password doesn't match"),
+      .required(t("errors.main"))
+      .oneOf([Yup.ref("password"), "not matched!"], t("errors.dontMatch")),
 
-    gender: Yup.string().required("Gender is required"),
+    gender: Yup.string().required(t("errors.main")),
   });
   const onSubmit = (values) => {
     console.log(values);
@@ -98,16 +100,16 @@ export const Form = () => {
           <div className="form-group col-md-6 px-2">
             <InputField
               register={{ ...register("fullName") }}
-              label="FullName"
-              placeholder="Please enter your name "
+              label={t("labels.name")}
+              placeholder={t("placeholder.nameContent")}
               errors={errors.fullName}
             />
           </div>
           <div className="form-group col-md-6 px-2">
             <Select
               register={{ ...register("position") }}
-              label="Position"
-              placeholder="Please enter your position "
+              label={t("labels.position")}
+              placeholder={t("placeholder.positionContent")}
               options={positionOptions}
               errors={errors.position}
             />
@@ -115,39 +117,39 @@ export const Form = () => {
           <div className="form-group col-md-6 px-2">
             <InputField
               register={{ ...register("email") }}
-              label="Email"
-              placeholder="Email"
+              label={t("labels.email")}
+              placeholder={t("placeholder.emailContent")}
               errors={errors.email}
             />
           </div>
           <div className="form-group col-md-6 px-2">
             <PhonePicker
               register={{ ...register("phone") }}
-              label="Phone number"
+              label={t("labels.phone")}
               errors={errors.phone}
             />
           </div>
           <div className="form-group col-md-6 px-2">
             <InputField
               register={{ ...register("country") }}
-              label="country"
-              placeholder="Please enter your country "
+              label={t("labels.country")}
+              placeholder={t("placeholder.name")}
               errors={errors.country}
             />
           </div>
           <div className="form-group col-md-6 px-2">
             <InputField
               register={{ ...register("city") }}
-              label="City"
-              placeholder="Please enter your city "
+              label={t("labels.city")}
+              placeholder={t("placeholder.cityContent")}
               errors={errors.city}
             />
           </div>
           <div className="form-group col-md-6 px-2">
             <InputField
               register={{ ...register("password") }}
-              label="Password"
-              placeholder="Please enter your password "
+              label={t("labels.password")}
+              placeholder={t("placeholder.passwordContent")}
               errors={errors.password}
               type="password"
               control={control}
@@ -156,8 +158,8 @@ export const Form = () => {
           <div className="form-group col-md-6 px-2">
             <InputField
               register={{ ...register("confirmPassword") }}
-              label="confirm password"
-              placeholder="Please confirm password"
+              label={t("labels.confirmPassword")}
+              placeholder={t("placeholder.confirmPasswordContent")}
               errors={errors.confirmPassword}
               type="password"
             />
@@ -165,14 +167,14 @@ export const Form = () => {
           <div className="form-group px-2">
             <Radio
               register={{ ...register("gender") }}
-              label="Gender"
+              label={t("labels.gender")}
               options={genderOptions}
               errors={errors.gender}
             />
           </div>
 
           <button type="submit" className="btn rounded-pill btn-primary shadow">
-            next
+            {t("submit")}
           </button>
         </div>
       </div>
