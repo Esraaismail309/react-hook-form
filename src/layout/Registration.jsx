@@ -9,9 +9,7 @@ export const Registration = () => {
   const locale = useContext(Context);
   const intl = useIntl();
   const [dir, setDir] = useState("ltr");
-  const changeDir = () => {
-    setDir("rtl");
-  };
+
   return (
     <>
       <div className="container" dir={dir}>
@@ -33,7 +31,10 @@ export const Registration = () => {
                       ? " rounded-circle mx-1 border border-light btn-primary"
                       : " rounded-circle mx-1 border border-light "
                   }
-                  onClick={locale.changeLanguage}
+                  onClick={(e) => {
+                    locale.changeLanguage(e);
+                    setDir("ltr");
+                  }}
                   value="en"
                 >
                   En
@@ -47,7 +48,7 @@ export const Registration = () => {
                   }
                   onClick={(e) => {
                     locale.changeLanguage(e);
-                    changeDir();
+                    setDir("rtl");
                   }}
                   value="ar"
                 >
