@@ -15,6 +15,7 @@
     "nameContent": "Please enter your name",
     "positionContent": "Please enter your position",
     "emailContent": "Please enter your email",
+    "phoneContent": "Please enter your phone number",
     "countryContent": "Please enter your country",
     "cityContent": "Please enter your city",
     "passwordContent": "Please enter your password",
@@ -31,7 +32,8 @@
     "noSpace": "Your name must not have spaces",
     "inValid": "your email is Invalid",
     "validPassword": "Your password should be Minimum eight characters, at least one letter ,one number and one special character",
-    "dontMatch": "password doesn't match"
+    "dontMatch": "password doesn't match",
+    "invalidPhoneCode": "enter valid phone number"
   },
   "submit": "next"
 }

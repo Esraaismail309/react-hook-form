@@ -1,31 +1,27 @@
-// import React, { createContext, useState } from "react";
-// import { IntlProvider } from "react-intl";
-// import { createIntl, createIntlCache } from "@formatjs/intl";
-// import locale_en from "./en.json";
-// import locale_ar from "./ar-AE.json";
-// export const Context = createContext();
+import React, { createContext, useState } from "react";
+import { IntlProvider } from "react-intl";
+import English from "./../i18n/locales/en/en-US.json";
+import Arabic from "./../i18n/locales/ar/ar-AE.json";
 
-// const messages = {
-//   en: locale_en,
-//   ar: locale_ar,
-// };
-// export const Wrapper = (props) => {
-//   console.log(props);
-//   const [locale, setLocale] = useState("ar");
-//   const cache = createIntlCache();
-//   const intl = createIntl(
-//     {
-//       locale: "ar",
-//       messages: messages[locale],
-//     },
-//     cache
-//   );
-//   console.log(intl);
-//   return (
-//     <Context.Provider value={{ locale, setLocale }}>
-//       <IntlProvider locale={intl.locale} messages={intl.messages}>
-//         {props.childern}
-//       </IntlProvider>
-//     </Context.Provider>
-//   );
-// };
+export const Context = createContext();
+
+export const Wrapper = (props) => {
+  const [locale, setLocale] = useState("en");
+  const [messages, setMessages] = useState(English);
+  const changeLanguage = (e) => {
+    const newLocale = e.target.value;
+    setLocale(newLocale);
+    if (newLocale === "en") {
+      setMessages(English);
+    } else {
+      setMessages(Arabic);
+    }
+  };
+  return (
+    <Context.Provider value={{ locale, changeLanguage }}>
+      <IntlProvider locale={locale} messages={messages}>
+        {props.children}
+      </IntlProvider>
+    </Context.Provider>
+  );
+};

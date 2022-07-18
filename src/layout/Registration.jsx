@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import bg from "./../assets/isometric-exhibition-demonstration-promo-stands-trade-stalls-expo-demonstration-stand-with-workers-visitors-vector-illustration-promo-stands-composition_229548-2111.webp";
 import logo from "./../assets/logo-tv-logo.png";
 import "./register.css";
 import { FormattedMessage, useIntl } from "react-intl";
-
+import { Context } from "./../locale/Wrapper";
 import { Form } from "../components/Form";
-import { useTranslation } from "react-i18next";
 export const Registration = () => {
-  const { i18n } = useTranslation();
-  const { t } = useTranslation();
-  function changeLanguage(e) {
-    i18n.changeLanguage(e.target.value);
-  }
-
+  const locale = useContext(Context);
+  const intl = useIntl();
+  const [dir, setDir] = useState("ltr");
+  const changeDir = () => {
+    setDir("rtl");
+  };
   return (
     <>
-      <div className="container">
+      <div className="container" dir={dir}>
         <div className="row justify-content-between align-item-center">
           <div className="col-md-6 position-relative mt-4">
             <img src={bg} className="img-fluid " alt="register img" />
@@ -23,20 +22,33 @@ export const Registration = () => {
           </div>
           <div className="col-md-6 mt-5  form__content">
             <div className="d-flex justify-content-between">
-              <h2 className="position-relative ms-2">{t("title")}</h2>
+              <h2 className="position-relative ms-2">
+                <FormattedMessage id="title" />
+              </h2>
               <div className="d-flex align-items-center justify-content-center p-2">
                 <button
                   type="button"
-                  className=" rounded-circle mx-1 border border-light"
-                  onClick={changeLanguage}
+                  className={
+                    intl.locale === "en"
+                      ? " rounded-circle mx-1 border border-light btn-primary"
+                      : " rounded-circle mx-1 border border-light "
+                  }
+                  onClick={locale.changeLanguage}
                   value="en"
                 >
                   En
                 </button>
                 <button
                   type="button"
-                  className=" rounded-circle mx-1 border border-light"
-                  onClick={changeLanguage}
+                  className={
+                    intl.locale === "ar"
+                      ? " rounded-circle mx-1 border border-light btn-primary"
+                      : " rounded-circle mx-1 border border-light "
+                  }
+                  onClick={(e) => {
+                    locale.changeLanguage(e);
+                    changeDir();
+                  }}
                   value="ar"
                 >
                   Ar

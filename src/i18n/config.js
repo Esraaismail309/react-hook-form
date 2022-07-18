@@ -6,7 +6,7 @@ i18n.use(initReactI18next).init({
     lng: 'en',
     resources: {
         en: {
-            translations: require('./locales/en/en.json')
+            translations: require('./locales/en/en-US.json')
         },
         ar: {
             translations: require('./locales/ar/ar-AE.json')

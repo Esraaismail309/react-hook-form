@@ -6,12 +6,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Select } from "./Select";
 import { Radio } from "./Radio";
 import { PhonePicker } from "./PhonePicker";
-// import { FormattedMessage, useIntl } from "react-intl";
-import { useTranslation } from "react-i18next";
+import { useIntl } from "react-intl";
 
 export const Form = () => {
-  const { t } = useTranslation();
-  // console.log(t);
+  const intl = useIntl();
+
   const initialValues = {
     fullName: "",
     position: "",
@@ -44,41 +43,46 @@ export const Form = () => {
   const genderOptions = [
     {
       value: 1,
-      key: t("gender.male"),
+      key: intl.messages.gender.male,
     },
     {
       value: 2,
-      key: t("gender.female"),
+      key: intl.messages.gender.female,
     },
     {
       value: 3,
-      key: t("gender.other"),
+      key: intl.messages.gender.other,
     },
     {
       value: 4,
-      key: t("gender.preferNotToSay"),
+      key: intl.messages.gender.preferNotToSay,
     },
   ];
   const validationSchema = Yup.object({
     fullName: Yup.string()
-      .required(t("errors.main"))
-      .matches("^\\S*$", t("errors.noSpace")),
-    position: Yup.string().required(t("errors.main")),
-    email: Yup.string().required(t("errors.main")).email(t("errors.inValid")),
-    phone: Yup.string().required(t("errors.main")),
-    country: Yup.string().required(t("errors.main")),
-    city: Yup.string().required(t("errors.main")),
+      .required(intl.messages.errors.main)
+      .matches("^\\S*$", intl.messages.errors.noSpace),
+    position: Yup.string().required(intl.messages.errors.main),
+    email: Yup.string()
+      .required(intl.messages.errors.main)
+      .email(intl.messages.errors.inValid),
+    phone: Yup.string().required(intl.messages.errors.main),
+    country: Yup.string().required(intl.messages.errors.main),
+    city: Yup.string().required(intl.messages.errors.main),
     password: Yup.string()
-      .required(t("errors.main"))
+      .required(intl.messages.errors.main)
       .matches(
         "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-        t("errors.validPassword")
+        intl.messages.errors.validPassword
       ),
     confirmPassword: Yup.string()
-      .required(t("errors.main"))
-      .oneOf([Yup.ref("password"), "not matched!"], t("errors.dontMatch")),
+      .required(intl.messages.errors.main)
+      .oneOf(
+        [Yup.ref("password"), "not matched!"],
+        intl.messages.errors.dontMatch
+      ),
 
-    gender: Yup.string().required(t("errors.main")),
+    gender: Yup.string().required(intl.messages.errors.main),
   });
   const onSubmit = (values) => {
     console.log(values);
@@ -100,16 +104,16 @@ export const Form = () => {
           <div className="form-group col-md-6 px-2">
             <InputField
               register={{ ...register("fullName") }}
-              label={t("labels.name")}
-              placeholder={t("placeholder.nameContent")}
+              label={intl.messages.labels.name}
+              placeholder={intl.messages.placeholder.nameContent}
               errors={errors.fullName}
             />
           </div>
           <div className="form-group col-md-6 px-2">
             <Select
               register={{ ...register("position") }}
-              label={t("labels.position")}
-              placeholder={t("placeholder.positionContent")}
+              label={intl.messages.labels.position}
+              placeholder={intl.messages.placeholder.positionContent}
               options={positionOptions}
               errors={errors.position}
             />
@@ -117,39 +121,40 @@ export const Form = () => {
           <div className="form-group col-md-6 px-2">
             <InputField
               register={{ ...register("email") }}
-              label={t("labels.email")}
-              placeholder={t("placeholder.emailContent")}
+              label={intl.messages.labels.email}
+              placeholder={intl.messages.placeholder.emailContent}
               errors={errors.email}
             />
           </div>
           <div className="form-group col-md-6 px-2">
             <PhonePicker
               register={{ ...register("phone") }}
-              label={t("labels.phone")}
+              label={intl.messages.labels.phone}
+              placeholder={intl.messages.placeholder.phoneContent}
               errors={errors.phone}
             />
           </div>
           <div className="form-group col-md-6 px-2">
             <InputField
               register={{ ...register("country") }}
-              label={t("labels.country")}
-              placeholder={t("placeholder.name")}
+              label={intl.messages.labels.country}
+              placeholder={intl.messages.placeholder.countryContent}
               errors={errors.country}
             />
           </div>
           <div className="form-group col-md-6 px-2">
             <InputField
               register={{ ...register("city") }}
-              label={t("labels.city")}
-              placeholder={t("placeholder.cityContent")}
+              label={intl.messages.labels.city}
+              placeholder={intl.messages.placeholder.cityContent}
               errors={errors.city}
             />
           </div>
           <div className="form-group col-md-6 px-2">
             <InputField
               register={{ ...register("password") }}
-              label={t("labels.password")}
-              placeholder={t("placeholder.passwordContent")}
+              label={intl.messages.labels.password}
+              placeholder={intl.messages.placeholder.passwordContent}
               errors={errors.password}
               type="password"
               control={control}
@@ -158,8 +163,8 @@ export const Form = () => {
           <div className="form-group col-md-6 px-2">
             <InputField
               register={{ ...register("confirmPassword") }}
-              label={t("labels.confirmPassword")}
-              placeholder={t("placeholder.confirmPasswordContent")}
+              label={intl.messages.labels.confirmPassword}
+              placeholder={intl.messages.placeholder.confirmPasswordContent}
               errors={errors.confirmPassword}
               type="password"
             />
@@ -167,14 +172,14 @@ export const Form = () => {
           <div className="form-group px-2">
             <Radio
               register={{ ...register("gender") }}
-              label={t("labels.gender")}
+              label={intl.messages.labels.gender}
               options={genderOptions}
               errors={errors.gender}
             />
           </div>
 
           <button type="submit" className="btn rounded-pill btn-primary shadow">
-            {t("submit")}
+            {intl.messages.submit}
           </button>
         </div>
       </div>
